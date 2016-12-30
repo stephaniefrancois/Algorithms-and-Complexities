@@ -1,8 +1,8 @@
 import com.sun.javaws.exceptions.InvalidArgumentException;
+import com.uni.algos.core.*;
 import com.uni.algos.core.domain.FastaSequence;
 import com.uni.algos.core.storage.DataFileNotFoundException;
 import com.uni.algos.core.storage.DataProvider;
-import com.uni.algos.core.storage.FastaDataParserFromString;
 import com.uni.algos.core.storage.FastaDataProvider;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,41 +13,48 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.hamcrest.text.StringContains.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 public class FastaDataParserFromStringTests {
 
     @Test
-    public void ShouldParseAndReturnSequenceFromDataProviderWhenDescriptionStartsWithLessThan() throws IOException, DataFileNotFoundException, InvalidArgumentException {
+    public void ShouldParseAndReturnSequenceFromDataProviderWhenDescriptionStartsWithLessThan() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
         ArrayList<String> data = new ArrayList<String>();
-        data.add(">My Description 1");
+        data.add(">My Description 1|ID|....");
         data.add("ABCDE 1");
 
         DataProvider providerMock = Mockito.mock(DataProvider.class);
+        FastaSequenceIdParser idParserMock = Mockito.mock(FastaSequenceIdParser.class);
         when(providerMock.getData()).thenReturn(data);
+        when(idParserMock.parseSequenceId(anyString())).thenReturn("ID");
 
-        FastaDataProvider sut = new FastaDataParserFromString(providerMock);
+        FastaDataProvider sut = new FastaDataParserFromString(providerMock, idParserMock);
 
         // when
         List<FastaSequence> result = sut.getSequences();
 
         // then
-        assertThat(result.get(0).getDescription(), equalTo("My Description 1"));
+        assertThat(result.get(0).getSequenceId(), equalTo("ID"));
+        assertThat(result.get(0).getDescription(), equalTo("My Description 1|ID|...."));
         assertThat(result.get(0).getSequence(), equalTo("ABCDE 1"));
     }
 
     @Test
-    public void ShouldParseAndReturnSequenceFromDataProviderWhenDescriptionStartsWithSemicolon() throws IOException, DataFileNotFoundException, InvalidArgumentException {
+    public void ShouldParseAndReturnSequenceFromDataProviderWhenDescriptionStartsWithSemicolon() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
         ArrayList<String> data = new ArrayList<String>();
         data.add(";My Description 1");
         data.add("ABCDE 1");
 
         DataProvider providerMock = Mockito.mock(DataProvider.class);
+        FastaSequenceIdParser idParserMock = Mockito.mock(FastaSequenceIdParser.class);
         when(providerMock.getData()).thenReturn(data);
 
-        FastaDataProvider sut = new FastaDataParserFromString(providerMock);
+        FastaDataProvider sut = new FastaDataParserFromString(providerMock, idParserMock);
 
         // when
         List<FastaSequence> result = sut.getSequences();
@@ -58,16 +65,17 @@ public class FastaDataParserFromStringTests {
     }
 
     @Test
-    public void ShouldNotReturnAnyResultsSinceNoDescriptionsFound() throws IOException, DataFileNotFoundException, InvalidArgumentException {
+    public void ShouldNotReturnAnyResultsSinceNoDescriptionsFound() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
         ArrayList<String> data = new ArrayList<String>();
         data.add("My Description 1");
         data.add("ABCDE 1");
 
         DataProvider providerMock = Mockito.mock(DataProvider.class);
+        FastaSequenceIdParser idParserMock = Mockito.mock(FastaSequenceIdParser.class);
         when(providerMock.getData()).thenReturn(data);
 
-        FastaDataProvider sut = new FastaDataParserFromString(providerMock);
+        FastaDataProvider sut = new FastaDataParserFromString(providerMock, idParserMock);
 
         // when
         List<FastaSequence> result = sut.getSequences();
@@ -77,7 +85,7 @@ public class FastaDataParserFromStringTests {
     }
 
     @Test
-    public void ShouldReturnSequenceThatSpansMultipleLines() throws IOException, DataFileNotFoundException, InvalidArgumentException {
+    public void ShouldReturnSequenceThatSpansMultipleLines() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
         ArrayList<String> data = new ArrayList<String>();
         data.add(";My Description 1");
@@ -85,9 +93,10 @@ public class FastaDataParserFromStringTests {
         data.add("EMFNEFDKRYAQGKGFITMALNSCHTSSLP");
 
         DataProvider providerMock = Mockito.mock(DataProvider.class);
+        FastaSequenceIdParser idParserMock = Mockito.mock(FastaSequenceIdParser.class);
         when(providerMock.getData()).thenReturn(data);
 
-        FastaDataProvider sut = new FastaDataParserFromString(providerMock);
+        FastaDataProvider sut = new FastaDataParserFromString(providerMock, idParserMock);
 
         // when
         List<FastaSequence> result = sut.getSequences();
@@ -101,7 +110,7 @@ public class FastaDataParserFromStringTests {
     }
 
     @Test
-    public void ShouldReturnTwoSequences() throws IOException, DataFileNotFoundException, InvalidArgumentException {
+    public void ShouldReturnTwoSequences() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
         ArrayList<String> data = new ArrayList<String>();
         data.add(";My Description 1");
@@ -110,9 +119,10 @@ public class FastaDataParserFromStringTests {
         data.add("EFGH");
 
         DataProvider providerMock = Mockito.mock(DataProvider.class);
+        FastaSequenceIdParser idParserMock = Mockito.mock(FastaSequenceIdParser.class);
         when(providerMock.getData()).thenReturn(data);
 
-        FastaDataProvider sut = new FastaDataParserFromString(providerMock);
+        FastaDataProvider sut = new FastaDataParserFromString(providerMock, idParserMock);
 
         // when
         List<FastaSequence> result = sut.getSequences();
@@ -130,7 +140,7 @@ public class FastaDataParserFromStringTests {
     }
 
     @Test
-    public void ShouldIgnoreSecondSequenceSinceDescriptionDoesntStartWithExpectedCharacter() throws IOException, DataFileNotFoundException, InvalidArgumentException {
+    public void ShouldIgnoreSecondSequenceSinceDescriptionDoesntStartWithExpectedCharacter() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
         ArrayList<String> data = new ArrayList<String>();
         data.add(";My Description 1");
@@ -141,9 +151,10 @@ public class FastaDataParserFromStringTests {
         data.add("KYLP");
 
         DataProvider providerMock = Mockito.mock(DataProvider.class);
+        FastaSequenceIdParser idParserMock = Mockito.mock(FastaSequenceIdParser.class);
         when(providerMock.getData()).thenReturn(data);
 
-        FastaDataProvider sut = new FastaDataParserFromString(providerMock);
+        FastaDataProvider sut = new FastaDataParserFromString(providerMock, idParserMock);
 
         // when
         List<FastaSequence> result = sut.getSequences();

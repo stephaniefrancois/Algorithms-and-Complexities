@@ -13,15 +13,22 @@ public class SwissProtManagerTests {
     @Test
     public void ShouldRetrieveAndPrintSwissProtSequence() throws UnsupportedEncodingException {
         // Given
+        String sequenceId = "Q6GZX3";
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         PrintStream printer = new PrintStream(byteStream);
         SwissProtManager sut = new SwissProtManager(printer);
 
         // When
-        sut.findAndDisplaySequence("id");
+        sut.findAndDisplaySequence(sequenceId);
 
         // Then
         String output = byteStream.toString("UTF-8");
-        assertThat(output, containsString("id"));
+        assertThat(output, allOf(containsString(sequenceId),
+                containsString("MSIIGATRLQNDKSDTYSAGPCYAGGCSAFTPRGTCGKDWDLGEQTCASGFCTSQPLCAR"),
+                containsString("IKKTQVCGLRYSSKGKDPLVSAEWDSRGAPYVRCTYDADLIDTQAQVDQFVSMFGESPSL"),
+                containsString("AERYCMRGVKNTAGELVSRVSSDADPAGGWCRKWYSAHRGPDQDAALGSFCIKNPGAADC"),
+                containsString("KCINRASDPVYQKVKTLHAYPDQCWYVPCAADVGELKMGTQRDTPTNCPTQVCQIVFNML"),
+                containsString("DDGSVTMDDVKNTINCDFSKYVPPPPPPKPTPPTPPTPPTPPTPPTPPTPPTPRPVHNRK"),
+                containsString("VMFFVAGAVLVAILISTVRW")));
     }
 }
