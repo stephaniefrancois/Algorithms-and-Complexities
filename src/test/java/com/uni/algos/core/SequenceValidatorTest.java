@@ -18,7 +18,7 @@ import static org.hamcrest.text.StringContains.containsString;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-class FastaSequenceValidatorTest {
+class SequenceValidatorTest {
 
     @Test
     public void GivenValidSequenceValidationShouldPass() throws InvalidSequenceIdException,
@@ -28,10 +28,10 @@ class FastaSequenceValidatorTest {
             InvalidArgumentException, InvalidSequenceException {
 
         // given
-        List<FastaSequence> sequences = new ArrayList<FastaSequence>();
+        List<FastaSequence> sequences = new ArrayList<>();
         sequences.add(new FastaSequence("ID", "Description", "GLQRH"));
 
-        List<String> characters = new ArrayList<String>();
+        List<String> characters = new ArrayList<>();
         characters.add("G");
         characters.add("L");
         characters.add("Q");
@@ -40,7 +40,7 @@ class FastaSequenceValidatorTest {
 
         FastaDataProvider providerMock = Mockito.mock(FastaDataProvider.class);
         ValidFastaSequenceCharactersProvider validCharactersProviderMock = Mockito.mock(ValidFastaSequenceCharactersProvider.class);
-        FastaDataProvider sut = new FastaSequenceValidator(providerMock, validCharactersProviderMock);
+        FastaDataProvider sut = new SequenceValidator(providerMock, validCharactersProviderMock);
         when(providerMock.getSequences()).thenReturn(sequences);
         when(validCharactersProviderMock.getCharacters()).thenReturn(characters);
 
@@ -62,20 +62,17 @@ class FastaSequenceValidatorTest {
             InvalidArgumentException, InvalidSequenceException {
 
         // given
-        List<FastaSequence> sequences = new ArrayList<FastaSequence>();
+        List<FastaSequence> sequences = new ArrayList<>();
         sequences.add(new FastaSequence("ID", "Description", ""));
 
         FastaDataProvider providerMock = Mockito.mock(FastaDataProvider.class);
         ValidFastaSequenceCharactersProvider validCharactersProviderMock = Mockito.mock(ValidFastaSequenceCharactersProvider.class);
-        FastaDataProvider sut = new FastaSequenceValidator(providerMock, validCharactersProviderMock);
+        FastaDataProvider sut = new SequenceValidator(providerMock, validCharactersProviderMock);
         when(providerMock.getSequences()).thenReturn(sequences);
 
         // when
         // then
-        Exception thrown = assertThrows(InvalidSequenceException.class, () -> {
-            sut.getSequences();
-        });
-
+        Exception thrown = assertThrows(InvalidSequenceException.class, () -> sut.getSequences());
         assertThat(thrown.getMessage(), containsString("ID"));
     }
 
@@ -87,27 +84,24 @@ class FastaSequenceValidatorTest {
             InvalidArgumentException, InvalidSequenceException {
 
         // given
-        List<FastaSequence> sequences = new ArrayList<FastaSequence>();
+        List<FastaSequence> sequences = new ArrayList<>();
         sequences.add(new FastaSequence("ID", "Description", "AB!C"));
 
-        List<String> characters = new ArrayList<String>();
+        List<String> characters = new ArrayList<>();
         characters.add("A");
         characters.add("B");
         characters.add("C");
 
         FastaDataProvider providerMock = Mockito.mock(FastaDataProvider.class);
         ValidFastaSequenceCharactersProvider validCharactersProviderMock = Mockito.mock(ValidFastaSequenceCharactersProvider.class);
-        FastaDataProvider sut = new FastaSequenceValidator(providerMock, validCharactersProviderMock);
+        FastaDataProvider sut = new SequenceValidator(providerMock, validCharactersProviderMock);
 
         when(providerMock.getSequences()).thenReturn(sequences);
         when(validCharactersProviderMock.getCharacters()).thenReturn(characters);
 
         // when
         // then
-        Exception thrown = assertThrows(InvalidSequenceException.class, () -> {
-            sut.getSequences();
-        });
-
+        Exception thrown = assertThrows(InvalidSequenceException.class, () -> sut.getSequences());
         assertThat(thrown.getMessage(), containsString("ID"));
     }
 
@@ -121,29 +115,26 @@ class FastaSequenceValidatorTest {
             InvalidArgumentException, InvalidSequenceException {
 
         // given
-        List<FastaSequence> sequences = new ArrayList<FastaSequence>();
+        List<FastaSequence> sequences = new ArrayList<>();
         sequences.add(new FastaSequence("ID1", "Description", "AB!C"));
         sequences.add(new FastaSequence("ID2", "Description", "ABC"));
         sequences.add(new FastaSequence("ID3", "Description", "AB#C"));
 
-        List<String> characters = new ArrayList<String>();
+        List<String> characters = new ArrayList<>();
         characters.add("A");
         characters.add("B");
         characters.add("C");
 
         FastaDataProvider providerMock = Mockito.mock(FastaDataProvider.class);
         ValidFastaSequenceCharactersProvider validCharactersProviderMock = Mockito.mock(ValidFastaSequenceCharactersProvider.class);
-        FastaDataProvider sut = new FastaSequenceValidator(providerMock, validCharactersProviderMock);
+        FastaDataProvider sut = new SequenceValidator(providerMock, validCharactersProviderMock);
 
         when(providerMock.getSequences()).thenReturn(sequences);
         when(validCharactersProviderMock.getCharacters()).thenReturn(characters);
 
         // when
         // then
-        Exception thrown = assertThrows(InvalidSequenceException.class, () -> {
-            sut.getSequences();
-        });
-
+        Exception thrown = assertThrows(InvalidSequenceException.class, () -> sut.getSequences());
         assertThat(thrown.getMessage(), allOf(containsString("ID1"),
                 containsString("ID3")));
     }

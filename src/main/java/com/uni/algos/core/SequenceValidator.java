@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class FastaSequenceValidator implements FastaDataProvider {
+public final class SequenceValidator implements FastaDataProvider {
 
     private final FastaDataProvider fastaDataProvider;
     private final ValidFastaSequenceCharactersProvider validCharactersProvider;
 
-    public FastaSequenceValidator(FastaDataProvider fastaDataProvider,
-                                  ValidFastaSequenceCharactersProvider validCharactersProvider) throws InvalidArgumentException {
+    public SequenceValidator(FastaDataProvider fastaDataProvider,
+                             ValidFastaSequenceCharactersProvider validCharactersProvider) throws InvalidArgumentException {
         if (fastaDataProvider == null) {
             throw new InvalidArgumentException(new String[]{"'fastaDataProvider' must be supplied"});
         }
@@ -33,7 +33,7 @@ public final class FastaSequenceValidator implements FastaDataProvider {
             InvalidSequenceIdException,
             InvalidSequenceException {
 
-        List<String> errors = new ArrayList<String>();
+        List<String> errors = new ArrayList<>();
         List<FastaSequence> sequencesToValidate = fastaDataProvider.getSequences();
         List<String> validCharacters = validCharactersProvider.getCharacters();
 
@@ -71,11 +71,11 @@ public final class FastaSequenceValidator implements FastaDataProvider {
     }
 
     private List<String> FindInvalidCharacters(List<String> validCharacters, String sequence) {
-        List<String> invalidCharacters = new ArrayList<String>();
+        List<String> invalidCharacters = new ArrayList<>();
 
         for (char character : sequence.toCharArray()) {
             String characterToValidate = Character.toString(character);
-            if (validCharacters.contains(characterToValidate) == false) {
+            if (!validCharacters.contains(characterToValidate)) {
                 invalidCharacters.add(characterToValidate);
             }
         }

@@ -1,43 +1,47 @@
 package com.uni.algos.core;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class InMemoryValidFastaSequenceCharactersProvider implements ValidFastaSequenceCharactersProvider {
 
-    private final ArrayList<String> validCharacters = new ArrayList<String>();
+    private final List<String> validCharacters;
 
     public InMemoryValidFastaSequenceCharactersProvider() {
-        AddValidCharacters();
+        validCharacters = AddValidCharacters();
     }
 
-    private void AddValidCharacters() {
-        validCharacters.add("Q");
-        validCharacters.add("W");
-        validCharacters.add("E");
-        validCharacters.add("R");
-        validCharacters.add("T");
-        validCharacters.add("Y");
-        validCharacters.add("U");
-        validCharacters.add("I");
-        validCharacters.add("O");
-        validCharacters.add("P");
-        validCharacters.add("A");
-        validCharacters.add("S");
-        validCharacters.add("D");
-        validCharacters.add("F");
-        validCharacters.add("G");
-        validCharacters.add("H");
-        validCharacters.add("J");
-        validCharacters.add("K");
-        validCharacters.add("L");
-        validCharacters.add("Z");
-        validCharacters.add("X");
-        validCharacters.add("C");
-        validCharacters.add("V");
-        validCharacters.add("B");
-        validCharacters.add("N");
-        validCharacters.add("M");
+    private List<String> AddValidCharacters() {
+        String[] characters = {
+                "Q", "q",
+                "W", "w",
+                "E", "e",
+                "R", "r",
+                "T", "t",
+                "Y", "y",
+                "U", "u",
+                "I", "i",
+                "O", "o",
+                "P", "p",
+                "A", "a",
+                "S", "s",
+                "D", "D",
+                "F", "f",
+                "G", "g",
+                "H", "h",
+                "J", "j",
+                "K", "k",
+                "L", "l",
+                "Z", "z",
+                "X", "x",
+                "C", "c",
+                "V", "v",
+                "B", "b",
+                "N", "n",
+                "M", "m",
+                "-", "*"};
+
+        return Arrays.asList(characters);
     }
 
     @Override
@@ -45,3 +49,4 @@ public class InMemoryValidFastaSequenceCharactersProvider implements ValidFastaS
         return validCharacters;
     }
 }
+
