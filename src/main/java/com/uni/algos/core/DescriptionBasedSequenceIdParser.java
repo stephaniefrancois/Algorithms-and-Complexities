@@ -2,7 +2,8 @@ package com.uni.algos.core;
 
 public class DescriptionBasedSequenceIdParser implements FastaSequenceIdParser {
     private final String separator = "|";
-    private final int requiredLength = 6;
+    private final int idMinLength = 6;
+    private final int idMaxLength = 10;
 
     @Override
     public String parseSequenceId(String description) throws SequenceIdNotFoundException, InvalidSequenceIdException {
@@ -37,10 +38,10 @@ public class DescriptionBasedSequenceIdParser implements FastaSequenceIdParser {
     }
 
     private boolean invalidLength(String id) {
-        return id.length() != requiredLength;
+        return id.length() < idMinLength || id.length() > idMaxLength;
     }
 
     private boolean notSupportedCharacter(char character) {
-        return Character.isLetterOrDigit(character) == false;
+        return !Character.isLetterOrDigit(character);
     }
 }
