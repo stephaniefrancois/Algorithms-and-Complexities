@@ -4,7 +4,6 @@ import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.uni.algos.core.InvalidSequenceException;
 import com.uni.algos.core.InvalidSequenceIdException;
 import com.uni.algos.core.SequenceIdNotFoundException;
-import com.uni.algos.core.SwissProtManager;
 import com.uni.algos.core.search.InvalidSearchCriteriaException;
 import com.uni.algos.core.storage.DataFileNotFoundException;
 
@@ -20,10 +19,13 @@ public class Main {
             InvalidSequenceIdException,
             IOException {
         // write your code here
-        SwissProtManager manager =
-                CompositionRoot.createRootComponent(System.out,
+        DashboardUI ui =
+                CompositionRoot.createRootComponent(System.in, System.out,
                         "src/main/resources/uniprot_sprot.fasta");
-        manager.findAndDisplaySequence("Q6GZX");
+//        manager.findAndDisplaySequence("Q6GZX");
+//        manager.findAndDisplaySequence("A0A0U5AUY6");
+
+        ui.displayMainMenu();
     }
 }
 

@@ -45,7 +45,7 @@ public final class SequenceValidator implements FastaDataProvider {
             throw new InvalidSequenceException(errors);
         }
 
-        return fastaDataProvider.getSequences();
+        return sequencesToValidate;
     }
 
     private void ValidateSequence(List<String> errors, List<String> validCharacters,

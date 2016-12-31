@@ -142,7 +142,7 @@ public final class SimpleFastaSequenceSearchTest {
     }
 
     @Test
-    public void GivenSearchCriteriaThatsMoreThanSixCharactersShouldThrow() throws InvalidSequenceException,
+    public void GivenSearchCriteriaThatsMoreThanTenCharactersShouldThrow() throws InvalidSequenceException,
             InvalidSequenceIdException,
             SequenceIdNotFoundException,
             DataFileNotFoundException,
@@ -155,6 +155,6 @@ public final class SimpleFastaSequenceSearchTest {
         // When
         // Then
 
-        assertThrows(InvalidSearchCriteriaException.class, () -> sut.Search("ID12345"));
+        assertThrows(InvalidSearchCriteriaException.class, () -> sut.Search("0123456789x"));
     }
 }

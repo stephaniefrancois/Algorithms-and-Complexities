@@ -14,7 +14,8 @@ public class SwissProtManager {
     private final PrintStream output;
     private final FastaSequenceSearch sequenceSearch;
 
-    public SwissProtManager(PrintStream output, FastaSequenceSearch sequenceSearch) throws InvalidArgumentException {
+    public SwissProtManager(PrintStream output,
+                            FastaSequenceSearch sequenceSearch) throws InvalidArgumentException {
         if (output == null) {
             throw new InvalidArgumentException(new String[]{"'output' must be supplied"});
         }
@@ -46,11 +47,11 @@ public class SwissProtManager {
     }
 
     public void findAndSaveSequencesAsFastaFormat(int minimumLengthForSequence) {
-
+        // to output to a FASTA format file a list of sequences with a minimum length specified by the user
     }
 
     public void sortAndSaveAllSwissProtsWithOrganisms() {
-
+        // to output to a CSV file a list of  SwissProt ID and their organism (OS) sorted by organism then SwissProt ID
     }
 }
 

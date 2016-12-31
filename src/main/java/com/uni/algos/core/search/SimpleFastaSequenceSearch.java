@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class SimpleFastaSequenceSearch implements FastaSequenceSearch {
 
     private final int SearchCriteriaMinLength = 3;
-    private final int SearchCriteriaMaxLength = 6;
+    private final int SearchCriteriaMaxLength = 10;
     private final FastaDataProvider fastaDataProvider;
 
     public SimpleFastaSequenceSearch(FastaDataProvider fastaDataProvider) throws InvalidArgumentException {
