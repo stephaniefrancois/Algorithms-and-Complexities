@@ -1,4 +1,4 @@
-package com.uni.algos.core;
+package com.uni.algos.core.parsers;
 
 public class DescriptionBasedSequenceIdParser implements FastaSequenceIdParser {
     private final String separator = "|";

@@ -1,12 +1,10 @@
-import com.uni.algos.core.DescriptionBasedSequenceIdParser;
-import com.uni.algos.core.FastaSequenceIdParser;
-import com.uni.algos.core.InvalidSequenceIdException;
-import com.uni.algos.core.SequenceIdNotFoundException;
+package com.uni.algos.core.parsers;
+
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.text.StringContains.containsString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DescriptionBasedSequenceIdParserTest {
@@ -68,9 +66,7 @@ public class DescriptionBasedSequenceIdParserTest {
 
         // when
         // then
-        Exception thrown = assertThrows(InvalidSequenceIdException.class, () -> {
-            sut.parseSequenceId(description);
-        });
+        Exception thrown = assertThrows(InvalidSequenceIdException.class, () -> sut.parseSequenceId(description));
         assertThat(thrown.getMessage(), containsString("0123456789x"));
     }
 

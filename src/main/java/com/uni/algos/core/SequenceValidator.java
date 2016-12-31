@@ -2,6 +2,8 @@ package com.uni.algos.core;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.uni.algos.core.domain.FastaSequence;
+import com.uni.algos.core.parsers.InvalidSequenceIdException;
+import com.uni.algos.core.parsers.SequenceIdNotFoundException;
 import com.uni.algos.core.storage.DataFileNotFoundException;
 import com.uni.algos.core.storage.FastaDataProvider;
 

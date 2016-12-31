@@ -2,8 +2,8 @@ package com.uni.algos.app;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.uni.algos.core.InvalidSequenceException;
-import com.uni.algos.core.InvalidSequenceIdException;
-import com.uni.algos.core.SequenceIdNotFoundException;
+import com.uni.algos.core.parsers.InvalidSequenceIdException;
+import com.uni.algos.core.parsers.SequenceIdNotFoundException;
 import com.uni.algos.core.search.InvalidSearchCriteriaException;
 import com.uni.algos.core.storage.DataFileNotFoundException;
 

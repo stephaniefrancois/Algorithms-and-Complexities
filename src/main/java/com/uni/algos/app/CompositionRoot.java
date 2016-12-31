@@ -2,6 +2,9 @@ package com.uni.algos.app;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.uni.algos.core.*;
+import com.uni.algos.core.parsers.DescriptionBasedSequenceIdParser;
+import com.uni.algos.core.parsers.FastaDataParserFromString;
+import com.uni.algos.core.parsers.FastaSequenceIdParser;
 import com.uni.algos.core.search.FastaSequenceSearch;
 import com.uni.algos.core.search.SimpleFastaSequenceSearch;
 import com.uni.algos.core.storage.DataProvider;

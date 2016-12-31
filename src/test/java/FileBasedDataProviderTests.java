@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.text.StringContains.containsString;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class FileBasedDataProviderTests {
@@ -60,9 +58,7 @@ public class FileBasedDataProviderTests {
         FileBasedDataProvider sut = new FileBasedDataProvider(dataFile);
         // when
         // then
-        DataFileNotFoundException thrown = assertThrows(DataFileNotFoundException.class, () -> {
-            sut.getData();
-        });
+        DataFileNotFoundException thrown = assertThrows(DataFileNotFoundException.class, () -> sut.getData());
         assertThat(thrown.getMessage(), containsString("invalid-file.txt"));
     }
 }

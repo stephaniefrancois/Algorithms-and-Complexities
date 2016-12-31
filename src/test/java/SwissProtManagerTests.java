@@ -1,5 +1,6 @@
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.uni.algos.core.*;
+import com.uni.algos.core.parsers.*;
 import com.uni.algos.core.search.FastaSequenceSearch;
 import com.uni.algos.core.search.InvalidSearchCriteriaException;
 import com.uni.algos.core.search.SimpleFastaSequenceSearch;

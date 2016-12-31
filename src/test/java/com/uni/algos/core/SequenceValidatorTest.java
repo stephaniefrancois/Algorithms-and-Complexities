@@ -2,6 +2,8 @@ package com.uni.algos.core;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.uni.algos.core.domain.FastaSequence;
+import com.uni.algos.core.parsers.InvalidSequenceIdException;
+import com.uni.algos.core.parsers.SequenceIdNotFoundException;
 import com.uni.algos.core.storage.DataFileNotFoundException;
 import com.uni.algos.core.storage.FastaDataProvider;
 import org.junit.jupiter.api.Test;
@@ -12,10 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.text.StringContains.containsString;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 class SequenceValidatorTest {

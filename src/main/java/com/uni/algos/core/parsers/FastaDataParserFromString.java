@@ -1,4 +1,4 @@
-package com.uni.algos.core;
+package com.uni.algos.core.parsers;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import com.uni.algos.core.domain.FastaSequence;
@@ -37,7 +37,7 @@ public class FastaDataParserFromString implements FastaDataProvider {
 
     @Override
     public List<FastaSequence> getSequences() throws IOException, DataFileNotFoundException, SequenceIdNotFoundException, InvalidSequenceIdException {
-        ArrayList<FastaSequence> sequences = new ArrayList<FastaSequence>();
+        ArrayList<FastaSequence> sequences = new ArrayList<>();
         List<String> dataToParse = dataProvider.getData();
 
         weBuildingSequence = false;

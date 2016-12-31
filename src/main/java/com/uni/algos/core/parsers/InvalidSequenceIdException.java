@@ -1,4 +1,4 @@
-package com.uni.algos.core;
+package com.uni.algos.core.parsers;
 
 import com.uni.algos.core.domain.AlgosApplicationException;
 

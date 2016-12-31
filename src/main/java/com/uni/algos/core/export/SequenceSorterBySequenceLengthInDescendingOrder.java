@@ -1,6 +1,7 @@
-package com.uni.algos.core;
+package com.uni.algos.core.export;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
+import com.uni.algos.core.InvalidSequenceException;
 import com.uni.algos.core.domain.FastaSequence;
 import com.uni.algos.core.parsers.InvalidSequenceIdException;
 import com.uni.algos.core.parsers.SequenceIdNotFoundException;
@@ -10,12 +11,11 @@ import com.uni.algos.core.storage.FastaDataProvider;
 import java.io.IOException;
 import java.util.List;
 
-public final class SequenceAbsoluteCache implements FastaDataProvider {
+public final class SequenceSorterBySequenceLengthInDescendingOrder implements FastaDataProvider {
 
     private final FastaDataProvider fastaDataProvider;
-    List<FastaSequence> cachedSequences = null;
 
-    public SequenceAbsoluteCache(FastaDataProvider fastaDataProvider) throws InvalidArgumentException {
+    public SequenceSorterBySequenceLengthInDescendingOrder(FastaDataProvider fastaDataProvider) throws InvalidArgumentException {
         if (fastaDataProvider == null) {
             throw new InvalidArgumentException(new String[]{"'fastaDataProvider' must be supplied"});
         }
@@ -28,11 +28,11 @@ public final class SequenceAbsoluteCache implements FastaDataProvider {
             SequenceIdNotFoundException,
             InvalidSequenceIdException,
             InvalidSequenceException {
+        List<FastaSequence> sequencesToSort = fastaDataProvider.getSequences();
+        sequencesToSort.sort((o1, o2) -> Integer.compare(
+                o2.getSequence().length(),
+                o1.getSequence().length()));
 
-        if (cachedSequences == null) {
-            cachedSequences = fastaDataProvider.getSequences();
-        }
-
-        return cachedSequences;
+        return sequencesToSort;
     }
 }

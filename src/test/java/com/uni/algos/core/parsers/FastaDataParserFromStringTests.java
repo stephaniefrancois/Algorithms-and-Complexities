@@ -1,5 +1,7 @@
+package com.uni.algos.core.parsers;
+
 import com.sun.javaws.exceptions.InvalidArgumentException;
-import com.uni.algos.core.*;
+import com.uni.algos.core.InvalidSequenceException;
 import com.uni.algos.core.domain.FastaSequence;
 import com.uni.algos.core.storage.DataFileNotFoundException;
 import com.uni.algos.core.storage.DataProvider;
@@ -11,10 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.text.StringContains.containsString;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +23,7 @@ public class FastaDataParserFromStringTests {
     @Test
     public void ShouldParseAndReturnSequenceFromDataProviderWhenDescriptionStartsWithLessThan() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         data.add(">My Description 1|ID|....");
         data.add("ABCDE 1");
 
@@ -46,7 +46,7 @@ public class FastaDataParserFromStringTests {
     @Test
     public void ShouldParseAndReturnSequenceFromDataProviderWhenDescriptionStartsWithSemicolon() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         data.add(";My Description 1");
         data.add("ABCDE 1");
 
@@ -67,7 +67,7 @@ public class FastaDataParserFromStringTests {
     @Test
     public void ShouldNotReturnAnyResultsSinceNoDescriptionsFound() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         data.add("My Description 1");
         data.add("ABCDE 1");
 
@@ -87,7 +87,7 @@ public class FastaDataParserFromStringTests {
     @Test
     public void ShouldReturnSequenceThatSpansMultipleLines() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         data.add(";My Description 1");
         data.add("MDSKGSSQKGSRLLLLLVVSNLLLCQGVVS");
         data.add("EMFNEFDKRYAQGKGFITMALNSCHTSSLP");
@@ -112,7 +112,7 @@ public class FastaDataParserFromStringTests {
     @Test
     public void ShouldReturnTwoSequences() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         data.add(";My Description 1");
         data.add("ABCD");
         data.add(">My Description 2");
@@ -142,7 +142,7 @@ public class FastaDataParserFromStringTests {
     @Test
     public void ShouldIgnoreSecondSequenceSinceDescriptionDoesntStartWithExpectedCharacter() throws IOException, DataFileNotFoundException, InvalidArgumentException, SequenceIdNotFoundException, InvalidSequenceIdException, InvalidSequenceException {
         // given
-        ArrayList<String> data = new ArrayList<String>();
+        ArrayList<String> data = new ArrayList<>();
         data.add(";My Description 1");
         data.add("ABCD");
         data.add(";My Description 2");
